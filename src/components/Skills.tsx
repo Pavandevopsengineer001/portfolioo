@@ -91,8 +91,8 @@ const Skills: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white text-gray-900">
-            Skills & <span className="text-blue-500">Technologies</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text animate-pulse">
+            Skills & Technologies
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mb-8"></div>
           <p className="text-lg dark:text-gray-300 text-gray-600 max-w-2xl mx-auto">

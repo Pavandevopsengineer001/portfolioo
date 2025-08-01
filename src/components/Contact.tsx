@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import {
   EnvelopeIcon,
   PhoneIcon,
-  MapPinIcon,
   PaperAirplaneIcon,
 } from '@heroicons/react/24/outline';
 import { Github } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { db } from '../firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
-
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +21,7 @@ const Contact: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -36,16 +36,12 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
-      const contactRef = collection(db, 'contacts');
-      await addDoc(contactRef, {
+      await addDoc(collection(db, 'contacts'), {
         ...formData,
         timestamp: Timestamp.now(),
       });
-
-      toast.success("Message sent successfully! I'll get back to you soon.");
-
+      toast.success('Message sent successfully!');
       setFormData({
         name: '',
         email: '',
@@ -53,9 +49,10 @@ const Contact: React.FC = () => {
         subject: '',
         message: '',
       });
+      navigate('/thank-you');
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('Failed to send message. Please try again.');
+      console.error('Error sending message:', error);
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -92,6 +89,7 @@ const Contact: React.FC = () => {
     'Technical Discussion',
     'Other',
   ];
+
   return (
     <section id="contact" className="py-20 dark:bg-slate-900 bg-gray-50">
       <div className="container mx-auto px-6">
@@ -102,9 +100,14 @@ const Contact: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white text-gray-900">
-            Get In <span className="text-blue-500">Touch</span>
-          </h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl md:text-5xl font-extrabold mb-6 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-[length:200%_200%] bg-clip-text text-transparent animate-gradient-x"
+          >
+            Get In Touch
+          </motion.h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mb-8"></div>
           <p className="text-lg dark:text-gray-300 text-gray-600 max-w-2xl mx-auto">
             Ready to discuss DevOps opportunities, collaborate on projects, or explore how I can
@@ -113,7 +116,7 @@ const Contact: React.FC = () => {
         </motion.div>
 
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
+          {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -167,7 +170,9 @@ const Contact: React.FC = () => {
             >
               <div className="flex items-center space-x-3 mb-3">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="font-semibold dark:text-white text-gray-900">Currently Available</span>
+                <span className="font-semibold dark:text-white text-gray-900">
+                  Currently Available
+                </span>
               </div>
               <p className="dark:text-gray-300 text-gray-600 text-sm">
                 Open to new opportunities and consulting projects. Typical response time: 24 hours.

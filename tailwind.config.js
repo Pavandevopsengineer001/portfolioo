@@ -10,11 +10,20 @@ export default {
           950: '#020617',
         },
       },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'slide-down': 'slideDown 0.5s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
+        gradient: 'gradientMove 4s ease infinite',
+        'gradient-x': 'gradientX 4s ease infinite', // ✅ Added this
       },
       keyframes: {
         fadeIn: {
@@ -33,15 +42,16 @@ export default {
           '0%': { transform: 'scale(0.9)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        gradientMove: {
+          '0%, 100%': { backgroundPosition: 'left center' },
+          '50%': { backgroundPosition: 'right center' },
+        },
+        gradientX: { // ✅ Added this
+          '0%, 100%': { backgroundPosition: 'left center' },
+          '50%': { backgroundPosition: 'right center' },
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-textshadow')],
 };

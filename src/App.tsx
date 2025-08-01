@@ -9,6 +9,10 @@ import Contact from './components/Contact';
 import Resume from './components/Resume';
 import Footer from './components/Footer';
 import { Toaster } from 'react-hot-toast';
+import DevOpsSimulator from './components/DevOpsSimulator';
+
+import ThankYou from './components/ThankYou';
+import Projects from './components/Projects';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -34,27 +38,31 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${
-      darkMode ? 'dark bg-slate-900' : 'bg-gray-50'
-    }`}>
-      <Toaster 
+    <div
+      className={`min-h-screen overflow-x-hidden transition-colors duration-300 ${
+        darkMode ? 'dark bg-slate-900' : 'bg-gray-50'
+      }`}
+    >
+      <Toaster
         position="top-right"
         toastOptions={{
           className: darkMode ? 'bg-slate-800 text-white' : 'bg-white text-gray-900',
         }}
       />
-      
+
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Certifications />
-        <Resume />
-        <Contact />
-      </main>
-      
+
+     <main>
+  <Hero />
+  <About />
+  <Skills />
+  <DevOpsSimulator />
+  <Certifications />
+  <Projects />
+  <Resume />
+  <Contact />
+  
+</main>
       <Footer />
     </div>
   );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Phone } from 'lucide-react';
-import { HeartIcon } from '@heroicons/react/24/solid';
+import { Github, Mail, Phone } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -42,47 +41,56 @@ const Footer: React.FC = () => {
     }
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <footer className="dark:bg-slate-900 bg-gray-50 border-t dark:border-slate-800 border-gray-200">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          {/* Brand Section */}
-          <div className="md:col-span-2">
-            <motion.h3 
-              className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent"
-              whileHover={{ scale: 1.05 }}
+    <footer className="dark:bg-slate-950 bg-gray-50 border-t dark:border-slate-800 border-gray-200">
+      <div className="container mx-auto px-4 sm:px-6 py-12">
+        <div className="grid gap-10 md:grid-cols-4 sm:grid-cols-2 grid-cols-1">
+          {/* Brand */}
+          <motion.div
+            className="md:col-span-2"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h3
+              className="
+                text-2xl font-extrabold mb-4
+                text-transparent bg-clip-text
+                bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-200
+                animate-pulse drop-shadow-md tracking-wide
+              "
             >
               Pavan Kalyan Penchikalapati
-            </motion.h3>
-            <p className="dark:text-gray-300 text-gray-600 mb-6 leading-relaxed max-w-md">
-              DevOps Engineer passionate about Infrastructure as Code, CI/CD Automation, 
-              and Cloud-Native Solutions. Transforming how software is built, deployed, and maintained.
+            </h3>
+            <p className="text-sm dark:text-gray-300 text-gray-600 leading-relaxed max-w-md">
+              DevOps Engineer focused on IaC, CI/CD, and Cloud Automation. Transforming the way software is built, deployed, and operated.
             </p>
-            
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 mt-6">
               {socialLinks.map((link) => (
                 <motion.a
                   key={link.name}
                   href={link.href}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
-                  rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className={`p-2 dark:bg-slate-800 bg-white rounded-lg dark:text-gray-400 text-gray-600 ${link.color} transition-colors shadow-sm hover:shadow-md border dark:border-slate-700 border-gray-200`}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
+                  rel="noopener noreferrer"
+                  className={`p-2 dark:bg-slate-800 bg-white rounded-lg dark:text-gray-400 text-gray-600 ${link.color} transition hover:shadow-lg border dark:border-slate-700 border-gray-200`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                   title={link.name}
                 >
                   {link.icon}
                 </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             <h4 className="text-lg font-semibold mb-4 dark:text-white text-gray-900">
               Quick Links
             </h4>
@@ -91,81 +99,56 @@ const Footer: React.FC = () => {
                 <li key={link.name}>
                   <motion.button
                     onClick={() => scrollToSection(link.href)}
-                    className="dark:text-gray-400 text-gray-600 hover:text-blue-500 transition-colors"
-                    whileHover={{ x: 4 }}
+                    className="text-sm dark:text-gray-400 text-gray-600 hover:text-blue-500 transition"
+                    whileHover={{ x: 6 }}
                   >
                     {link.name}
                   </motion.button>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Contact Info */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
             <h4 className="text-lg font-semibold mb-4 dark:text-white text-gray-900">
               Contact Info
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-4 text-sm">
               <div>
-                <p className="text-sm dark:text-gray-400 text-gray-500 mb-1">Email</p>
-                <a 
-                  href="mailto:mr.pavan.kalyan.54@gmail.com"
-                  className="dark:text-gray-300 text-gray-700 hover:text-blue-500 transition-colors text-sm"
-                >
+                <p className="text-gray-500 dark:text-gray-400">Email</p>
+                <a href="mailto:mr.pavan.kalyan.54@gmail.com" className="dark:text-gray-300 text-gray-700 hover:text-blue-500">
                   mr.pavan.kalyan.54@gmail.com
                 </a>
               </div>
               <div>
-                <p className="text-sm dark:text-gray-400 text-gray-500 mb-1">Phone</p>
-                <a 
-                  href="tel:+919154658651"
-                  className="dark:text-gray-300 text-gray-700 hover:text-green-500 transition-colors text-sm"
-                >
+                <p className="text-gray-500 dark:text-gray-400">Phone</p>
+                <a href="tel:+919154658651" className="dark:text-gray-300 text-gray-700 hover:text-green-500">
                   +91 9154658651
                 </a>
               </div>
-              <div>
-                <p className="text-sm dark:text-gray-400 text-gray-500 mb-1">Status</p>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm dark:text-gray-300 text-gray-700">
-                    Available for opportunities
-                  </span>
-                </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-gray-600 dark:text-gray-300">Available for opportunities</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t dark:border-slate-800 border-gray-200 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <span className="dark:text-gray-400 text-gray-600 text-sm">
-                © {currentYear} Engineered by Pavan Kalyan Penchikalapati — DevOps | Cloud | Automation
-              </span>
-            </div>
-
-            <motion.button
-              onClick={scrollToTop}
-              className="inline-flex items-center space-x-2 px-4 py-2 dark:bg-slate-800 bg-white dark:text-gray-300 text-gray-700 rounded-lg hover:text-blue-500 transition-colors shadow-sm hover:shadow-md border dark:border-slate-700 border-gray-200"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
-            >
-              <span className="text-sm">Back to Top</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-              </svg>
-            </motion.button>
-          </div>
-
-          {/* Additional Footer Info */}
-          <div className="mt-6 text-center">
-            <p className="text-xs dark:text-gray-500 text-gray-400">
-              Built with React, TypeScript, Tailwind CSS, and Framer Motion. 
-              Optimized for performance and accessibility.
-            </p>
+        {/* Bottom */}
+        <div className="border-t dark:border-slate-800 border-gray-200 mt-12 pt-6">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+            <span className="mb-4 md:mb-0">
+              © {currentYear} Engineered by Pavan Kalyan Penchikalapati — DevOps | Cloud | Automation
+            </span>
+            <span className="text-xs text-center">
+              Built with React, TypeScript, TailwindCSS, Framer Motion.
+            </span>
           </div>
         </div>
       </div>
