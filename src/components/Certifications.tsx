@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { CheckBadgeIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import MAZ104 from '../assets/MAZ104.pdf';
@@ -44,25 +44,55 @@ const Certifications: React.FC = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [activeCertLink, setActiveCertLink] = useState<string | null>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const openModal = (link: string) => {
     setActiveCertLink(link);
     setModalOpen(true);
     document.body.style.overflow = 'hidden';
+    window.history.pushState({ modal: true }, '');
   };
 
   const closeModal = () => {
     setModalOpen(false);
     setActiveCertLink(null);
     document.body.style.overflow = 'auto';
+
+    if (window.history.state?.modal) {
+      window.history.back();
+    }
   };
 
   useEffect(() => {
     const escHandler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeModal();
     };
-    if (modalOpen) window.addEventListener('keydown', escHandler);
-    return () => window.removeEventListener('keydown', escHandler);
+
+    const popStateHandler = () => {
+      if (modalOpen) {
+        setModalOpen(false);
+        setActiveCertLink(null);
+        document.body.style.overflow = 'auto';
+      }
+    };
+
+    const outsideClickHandler = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        closeModal();
+      }
+    };
+
+    if (modalOpen) {
+      window.addEventListener('keydown', escHandler);
+      window.addEventListener('popstate', popStateHandler);
+      document.addEventListener('mousedown', outsideClickHandler);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', escHandler);
+      window.removeEventListener('popstate', popStateHandler);
+      document.removeEventListener('mousedown', outsideClickHandler);
+    };
   }, [modalOpen]);
 
   const containerVariants = {
@@ -212,7 +242,10 @@ const Certifications: React.FC = () => {
 
       {modalOpen && activeCertLink && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-lg max-w-5xl w-full h-[90vh] relative shadow-xl overflow-hidden">
+          <div
+            ref={modalRef}
+            className="bg-white dark:bg-slate-900 rounded-lg max-w-5xl w-full h-[90vh] relative shadow-xl overflow-hidden"
+          >
             <button
               onClick={closeModal}
               className="absolute top-2 right-2 text-gray-500 hover:text-red-500 z-50"

@@ -6,9 +6,9 @@ import {
   CalendarIcon,
 } from '@heroicons/react/24/outline';
 import BackToTopButton from './BackToTopButton';
-
 const RESUME_URL =
-  'https://raw.githubusercontent.com/Pavandevopsengineer001/portfolio/main/Pavan%20Kalyan%20Penchikalapat5%20(1).pdf';
+  'https://raw.githubusercontent.com/Pavandevopsengineer001/portfolio/main/pavankalyan.pdf';
+
 
 const Resume: React.FC = () => {
   const today = new Date().toLocaleDateString('en-US', {
@@ -99,11 +99,11 @@ const Resume: React.FC = () => {
               </div>
               <div className="overflow-hidden">
                 <h3 className="text-xl font-semibold dark:text-white text-gray-900 truncate max-w-[180px] sm:max-w-xs">
-                  Pavankalyan_resumee.pdf
+                  MY RESUME
                 </h3>
-                <p className="text-sm dark:text-gray-400 text-gray-500">
+                {/* <p className="text-sm dark:text-gray-400 text-gray-500">
                   ~ Size based on GitHub file
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="flex items-center space-x-2 text-green-500 text-sm font-medium">
